@@ -1,16 +1,20 @@
+import { variables } from "./variables";
+
+const url = `${variables.get("server.url")}:${variables.get("server.port")}`;
+
 export const swaggerConfiguration = {
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'Skeleton API',
-      version: '1.0.0',
-      description: 'A simple api'
+      title: "Skeleton API",
+      version: "1.0.0",
+      description: "A simple api",
     },
     servers: [
       {
-        url: 'http://localhost:8084'
-      }
-    ]
+        url,
+      },
+    ],
   },
-  apis: ['./src/**/infrastructure/api/routes/*.ts']
-}
+  apis: ["./src/**/infrastructure/api/routes/*.ts"],
+};

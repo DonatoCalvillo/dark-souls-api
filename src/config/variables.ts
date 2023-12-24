@@ -5,6 +5,12 @@ dotenv.config()
 
 const variables = convict({
   server: {
+    url: {
+      doc: 'Url of the server',
+      format: String,
+      default: 'http://localhost',
+      env: 'API_URL'
+    },
     port: {
       doc: 'Port of the server.',
       format: 'Number',

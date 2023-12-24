@@ -8,7 +8,7 @@ export class HealthController {
   }
 
   async run (req: Request, res: Response): Promise<void> {
-    this._logger.info('[HealthController] API Healthy')
+    this._logger.info('[HealthController] The API is healthy! ✅')
     res.status(200).send()
   }
 }

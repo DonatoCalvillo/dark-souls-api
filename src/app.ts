@@ -41,7 +41,7 @@ export class App {
     this._app.use('/api/health', healthRouter)
 
     const specs = swaggerJsDoc(swaggerConfiguration)
-    this._app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(specs))
+    this._app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs))
   }
 
   listen (): void {
