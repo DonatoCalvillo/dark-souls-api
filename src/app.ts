@@ -7,10 +7,13 @@ import swaggerJsDoc from 'swagger-jsdoc'
 import { swaggerConfiguration } from './config/swagger'
 import { variables } from './config/variables'
 
-import { type Logger } from './shared/domain/logger'
-import { container } from './shared/infrastructure/container'
+import { type Logger } from './modules/shared/domain/logger'
+import { container } from './modules/shared/infrastructure/container'
 
-import { healthRouter } from './health/infrastructure/api/routes/health-router'
+import { TypeOrmDataSource } from './modules/database/infrastructure/typeorm-config'
+
+import { healthRouter } from './modules/health/infrastructure/api/routes/health-router'
+import { equipmentRoute } from './modules/equipment/infrastructure/api/routes/equipment-route'
 
 export class App {
   _app: Application
@@ -23,6 +26,8 @@ export class App {
     this._port = variables.get('server.port')
 
     this._logger = container.resolve<Logger>('logger')
+
+    this.database()
 
     this.middlewares()
 
@@ -39,6 +44,7 @@ export class App {
 
   router (): void {
     this._app.use('/api/health', healthRouter)
+    this._app.use('/api/v1/equipment', equipmentRoute)
 
     const specs = swaggerJsDoc(swaggerConfiguration)
     this._app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs))
@@ -49,5 +55,15 @@ export class App {
       this._logger.info(`[APP] - Started application on port ${this._port}`)
       this._logger.info(`[APP] - Environment: ${variables.get('env')}`)
     })
+  }
+
+  async database (): Promise<void> {
+    try {
+      await TypeOrmDataSource.initialize();
+      this._logger.info(`[APP] - Database connection successfully`)
+    } catch (error) {
+      this._logger.error(`[APP] - Database connection went wrong:`)
+      console.log(error)
+    }
   }
 }

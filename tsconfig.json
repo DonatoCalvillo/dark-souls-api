@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    },
     "module": "commonjs",
     "target": "ES2021",
     "esModuleInterop": true,
@@ -17,7 +20,10 @@
     "noUnusedLocals": true,
     "removeComments": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false
   },
   "include": ["src/**/**.ts", "tests/**/**.ts"],
   "exclude": ["node_modules", "./dist"]

@@ -13,13 +13,13 @@ const healthRouter: Router = Router()
 /**
  * @swagger
  * /api/health:
- *   get:
+ *   head:
  *     summary: check the api health
  *     tags: [Health]
  *     responses:
  *       200:
  *         description: The API it's healthy.
  */
-healthRouter.get('/', handleRequest('healthController'))
+healthRouter.head('/', handleRequest('healthController'))
 
 export { healthRouter }
