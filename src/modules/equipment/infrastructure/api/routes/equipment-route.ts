@@ -1,12 +1,11 @@
-import { Router } from 'express';
-import { handleRequest } from '../../../../shared/infrastructure/handle-request'
-import { ContainerEnum } from '../../../../shared/domain/enum/container-enum';
+import { Router } from "express";
+
+import { handleRequest } from "../../../../shared/infrastructure/handle-request";
+import { ContainerEnum } from "../../../../shared/domain/enum/container-enum";
 
 const equipmentRoute: Router = Router();
 
-const {
-  createEquipmentController
-} = ContainerEnum
+const { createEquipmentController, getEquipmentsController } = ContainerEnum;
 
 /**
  * @swagger
@@ -18,8 +17,80 @@ const {
 /**
  * @swagger
  * /api/v1/equipment:
+ *   get:
+ *     summary: Get equipments with pagination
+ *     tags: [Equipment]
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Number of items to retrieve per page.
+ *       - in: query
+ *         name: skip
+ *         schema:
+ *           type: integer
+ *         description: Number of items to skip (pagination).
+ *       - in: query
+ *         name: keyWord
+ *         schema:
+ *           type: string
+ *         description: Search keyword to filter equipments by name.
+ *     responses:
+ *       200:
+ *         description: Success. Retrieve a list of equipments.
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: Getting the equipments successfully
+ *               data:
+ *                 equipments:
+ *                   - id: afea34f2-c341-4674-8ef2-b381e635a1fb
+ *                     name: Name
+ *                     description: Description
+ *                     statistics:
+ *                       requiredAttributes:
+ *                         strength: 0
+ *                         dexterity: 0
+ *                       additionalAttributes:
+ *                         strength: D
+ *                         dexterity: E
+ *                       statistics:
+ *                         weaponType: Weapon type
+ *                         attackType: Attack type
+ *                         duration: 0
+ *                         weight: 0
+ *                       ATK:
+ *                         physical: 0
+ *                         magic: 0
+ *                         fire: 0
+ *                         electric: 0
+ *                         critical: 0
+ *                       specialEffects:
+ *                         bleeding: 0
+ *                         toxic: 0
+ *                         divine: "-"
+ *                         hidden: "-"
+ *                       damageReduction:
+ *                         physical: 0
+ *                         magic: 0
+ *                         fire: 0
+ *                         electric: 0
+ *                         stability: 0
+ *                     location: Location
+ *                     image: image.jpg
+ *                     createdAt: MM/DD/YYYY HH:MM:SS
+ *                     updatedAt: MM/DD/YYYY HH:MM:SS
+ */
+
+equipmentRoute.get("/", handleRequest(getEquipmentsController));
+
+/**
+ * @swagger
+ * /api/v1/equipment:
  *   post:
- *     summary: create an equipment
+ *     summary: Create an equipment
  *     tags: [Equipment]
  *     requestBody:
  *      required: true
@@ -45,8 +116,51 @@ const {
  *                description: Id from equipment type
  *     responses:
  *       200:
- *         description: The API it's healthy.
+ *         description: Equipment created successfully.
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: The equipment was created successfully
+ *               data:
+ *                 equipment:
+ *                   id: afea34f2-c341-4674-8ef2-b381e635a1fb
+ *                   name: Name
+ *                   description: Description
+ *                   statistics:
+ *                     requiredAttributes:
+ *                       strength: 0
+ *                       dexterity: 0
+ *                     additionalAttributes:
+ *                       strength: D
+ *                       dexterity: E
+ *                     statistics:
+ *                       weaponType: Weapon type
+ *                       attackType: Attack type
+ *                       duration: 0
+ *                       weight: 0
+ *                     ATK:
+ *                       physical: 0
+ *                       magic: 0
+ *                       fire: 0
+ *                       electric: 0
+ *                       critical: 0
+ *                     specialEffects:
+ *                       bleeding: 0
+ *                       toxic: 0
+ *                       divine: "-"
+ *                       hidden: "-"
+ *                     damageReduction:
+ *                       physical: 0
+ *                       magic: 0
+ *                       fire: 0
+ *                       electric: 0
+ *                       stability: 0
+ *                   location: Location
+ *                   image: image.jpg
+ *                   createdAt: MM/DD/YYYY HH:MM:SS
+ *                   updatedAt: MM/DD/YYYY HH:MM:SS
  */
-equipmentRoute.post('/', handleRequest(createEquipmentController))
+equipmentRoute.post("/", handleRequest(createEquipmentController));
 
-export { equipmentRoute }
+export { equipmentRoute };

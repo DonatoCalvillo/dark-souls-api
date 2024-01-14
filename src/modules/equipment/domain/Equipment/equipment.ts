@@ -1,14 +1,15 @@
-import { EquipmentType } from "../EquipmentType/equipment-type";
-import { EquipmentDate } from "./equipment-date";
 import { EquipmentId } from "./equipment-id";
+import { EquipmentDate } from "./equipment-date";
 import { EquipmentStatistics } from "./equipment-statistics";
 
+import { EquipmentType } from "../EquipmentType/equipment-type";
+
 export class Equipment {
-  private id: EquipmentId
-  private statistics: EquipmentStatistics
-  private createdAt: EquipmentDate
-  private updatedAt: EquipmentDate
-  private type: EquipmentType
+  private id: EquipmentId;
+  private statistics: EquipmentStatistics;
+  private createdAt: EquipmentDate;
+  private updatedAt: EquipmentDate;
+  private type: EquipmentType;
 
   constructor(
     id: string,
@@ -20,14 +21,14 @@ export class Equipment {
     createdAt: string,
     updatedAt: string
   ) {
-    this.id = new EquipmentId(id)
-    this.createdAt = new EquipmentDate(createdAt)
-    this.updatedAt = new EquipmentDate(updatedAt)
-    this.statistics = new EquipmentStatistics(statistics)
+    this.id = new EquipmentId(id);
+    this.createdAt = new EquipmentDate(createdAt);
+    this.updatedAt = new EquipmentDate(updatedAt);
+    this.statistics = new EquipmentStatistics(statistics);
   }
 
-  setType(type: EquipmentType){
-    this.type = type
+  setType(type: EquipmentType) {
+    this.type = type;
   }
 
   toPrimitive() {
@@ -35,15 +36,15 @@ export class Equipment {
       id: this.id.getValue(),
       name: this.name,
       description: this.description,
-      statistics: this.statistics,
+      statistics: this.statistics.getValue(),
       location: this.location,
       image: this.image,
       createdAt: this.createdAt.getValue(),
       updatedAt: this.updatedAt.getValue(),
-    }
+    };
   }
 
-  toPrimitiveDetail(){
+  toPrimitiveDetail() {
     return {
       id: this.id.getValue(),
       name: this.name,
@@ -54,6 +55,6 @@ export class Equipment {
       type: this.type.toPrimitive(),
       createdAt: this.createdAt.getValue(),
       updatedAt: this.updatedAt.getValue(),
-    }
+    };
   }
 }

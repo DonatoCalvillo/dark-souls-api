@@ -6,8 +6,11 @@ export enum ContainerEnum {
 
   //Applications (use cases)
   createEquipment = 'createEquipment',
+  getEquipments = 'getEquipments',
 
   //Controllers
   healthController = 'healthController',
-  createEquipmentController = 'createEquipmentController'
+
+  createEquipmentController = 'createEquipmentController',
+  getEquipmentsController = 'getEquipmentsController'
 }
