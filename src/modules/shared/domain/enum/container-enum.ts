@@ -1,16 +1,18 @@
 export enum ContainerEnum {
-  logger = 'logger',
+  logger = "logger",
 
   //Repositories
-  equipmentRepository = 'equipmentRepository',
+  equipmentRepository = "equipmentRepository",
 
   //Applications (use cases)
-  createEquipment = 'createEquipment',
-  getEquipments = 'getEquipments',
+  createEquipment = "createEquipment",
+  getEquipments = "getEquipments",
+  getEquipmentById = "getEquipmentById",
 
   //Controllers
-  healthController = 'healthController',
+  healthController = "healthController",
 
-  createEquipmentController = 'createEquipmentController',
-  getEquipmentsController = 'getEquipmentsController'
+  createEquipmentController = "createEquipmentController",
+  getEquipmentsController = "getEquipmentsController",
+  getEquipmentController = "getEquipmentController",
 }

@@ -13,6 +13,7 @@ import {
   EquipmentEntity,
   EquipmentTypeEntity,
 } from "../../../database/infrastructure/entities";
+import { GetEquipmentByIdDto } from "../../application/dto/get-equipment-by-id-dto";
 
 export class EquipmentTypeOrmRepository implements EquipmentRepository {
   private readonly logger: Logger;
@@ -72,6 +73,20 @@ export class EquipmentTypeOrmRepository implements EquipmentRepository {
       await this.equipmentRepository.findOne({
         where: { name: equipmentName },
       });
+    return equipment;
+  }
+
+  async getEquipmentById(
+    equipmentDto: GetEquipmentByIdDto
+  ): Promise<EquipmentEntity | null> {
+    this.logger.info(
+      `[EquipmentTypeOrmRepository] Getting Equipment <${equipmentDto.equipmentId.getValue()}> 🏹`
+    );
+    const equipment: EquipmentEntity | null =
+      await this.equipmentRepository.findOne({
+        where: { id: equipmentDto.equipmentId.getValue() },
+      });
+
     return equipment;
   }
 

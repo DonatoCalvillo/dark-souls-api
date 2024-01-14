@@ -5,7 +5,11 @@ import { ContainerEnum } from "../../../../shared/domain/enum/container-enum";
 
 const equipmentRoute: Router = Router();
 
-const { createEquipmentController, getEquipmentsController } = ContainerEnum;
+const {
+  createEquipmentController,
+  getEquipmentsController,
+  getEquipmentController,
+} = ContainerEnum;
 
 /**
  * @swagger
@@ -83,8 +87,70 @@ const { createEquipmentController, getEquipmentsController } = ContainerEnum;
  *                     createdAt: MM/DD/YYYY HH:MM:SS
  *                     updatedAt: MM/DD/YYYY HH:MM:SS
  */
-
 equipmentRoute.get("/", handleRequest(getEquipmentsController));
+
+/**
+ * @swagger
+ * /api/v1/equipment/{id}:
+ *   get:
+ *     summary: Get a equipment by id
+ *     tags: [Equipment]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         required: true
+ *         description: The ID of the equipment (UUID).
+ *     responses:
+ *       200:
+ *         description: Success. Retrieve a equipment.
+ *         content:
+ *           application/json:
+ *             example:
+ *               success: true
+ *               message: Getting the equipments successfully
+ *               data:
+ *                 equipments:
+ *                   id: afea34f2-c341-4674-8ef2-b381e635a1fb
+ *                   name: Name
+ *                   description: Description
+ *                   statistics:
+ *                     requiredAttributes:
+ *                       strength: 0
+ *                       dexterity: 0
+ *                     additionalAttributes:
+ *                       strength: D
+ *                       dexterity: E
+ *                     statistics:
+ *                       weaponType: Weapon type
+ *                       attackType: Attack type
+ *                       duration: 0
+ *                       weight: 0
+ *                     ATK:
+ *                       physical: 0
+ *                       magic: 0
+ *                       fire: 0
+ *                       electric: 0
+ *                       critical: 0
+ *                     specialEffects:
+ *                       bleeding: 0
+ *                       toxic: 0
+ *                       divine: "-"
+ *                       hidden: "-"
+ *                     damageReduction:
+ *                       physical: 0
+ *                       magic: 0
+ *                       fire: 0
+ *                       electric: 0
+ *                       stability: 0
+ *                   location: Location
+ *                   image: image.jpg
+ *                   createdAt: MM/DD/YYYY HH:MM:SS
+ *                   updatedAt: MM/DD/YYYY HH:MM:SS
+ */
+equipmentRoute.get("/:id", handleRequest(getEquipmentController));
 
 /**
  * @swagger

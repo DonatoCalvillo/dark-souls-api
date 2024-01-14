@@ -11,6 +11,8 @@ import { GetEquipmentsController } from "../../equipment/infrastructure/api/cont
 import { EquipmentTypeOrmRepository } from "../../equipment/infrastructure/repository/equipment-typeorm-repository";
 import { CreateEquipmentController } from "../../equipment/infrastructure/api/controllers/create-equipment-controller";
 import { GetEquipments } from "../../equipment/application/get-equipments";
+import { GetEquipmentController } from "../../equipment/infrastructure/api/controllers/get-equipment-controller";
+import { GetEquipmentById } from "../../equipment/application/get-equipment-by-id";
 
 const container = Awilix.createContainer({
   injectionMode: Awilix.InjectionMode.PROXY,
@@ -26,12 +28,16 @@ container.register({
   [ContainerEnum.healthController]: Awilix.asClass(HealthController),
   [ContainerEnum.createEquipment]: Awilix.asClass(CreateEquipment),
   [ContainerEnum.getEquipments]: Awilix.asClass(GetEquipments),
+  [ContainerEnum.getEquipmentById]: Awilix.asClass(GetEquipmentById),
 
   [ContainerEnum.createEquipmentController]: Awilix.asClass(
     CreateEquipmentController
   ),
   [ContainerEnum.getEquipmentsController]: Awilix.asClass(
     GetEquipmentsController
+  ),
+  [ContainerEnum.getEquipmentController]: Awilix.asClass(
+    GetEquipmentController
   ),
 });
 
