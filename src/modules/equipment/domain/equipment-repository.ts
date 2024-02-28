@@ -1,6 +1,9 @@
-import { GetEquipmentsDto } from "../application/dto/get-equipments-dto";
-import { CreateEquipmentDto } from "../application/dto/create-equipment-dto";
-import { GetEquipmentByIdDto } from "../application/dto/get-equipment-by-id-dto";
+import {
+  GetEquipmentsDto,
+  CreateEquipmentDto,
+  GetEquipmentByIdDto,
+  UpdateEquipmentDto
+} from "../application/dto";
 
 import { EquipmentEntity } from "../../database/infrastructure/entities";
 
@@ -15,4 +18,5 @@ export interface EquipmentRepository {
   getEquipments(
     equipmentDto: GetEquipmentsDto
   ): Promise<EquipmentEntity[] | null>;
+  updateEquipment(equipmentDto: UpdateEquipmentDto): Promise<EquipmentEntity>;
 }

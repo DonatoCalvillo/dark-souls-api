@@ -13,7 +13,7 @@ import {
   EquipmentEntity,
   EquipmentTypeEntity,
 } from "../../../database/infrastructure/entities";
-import { GetEquipmentByIdDto } from "../../application/dto/get-equipment-by-id-dto";
+import { UpdateEquipmentDto, GetEquipmentByIdDto } from "../../application/dto";
 
 export class EquipmentTypeOrmRepository implements EquipmentRepository {
   private readonly logger: Logger;
@@ -112,5 +112,28 @@ export class EquipmentTypeOrmRepository implements EquipmentRepository {
 
     const equipments: EquipmentEntity[] | null = await queryBuilder.getMany();
     return equipments;
+  }
+
+  async updateEquipment({id, name, description, statistics, location, equipmentTypeId}: UpdateEquipmentDto): Promise<EquipmentEntity> {
+    this.logger.info(`[EquipmentTypeOrmRepository] Updating Equipment 🏹`);
+    const equipmentType: EquipmentTypeEntity | null = await this.equipmentTypeRepository.findOne({
+      where: { id: equipmentTypeId.getValue() }
+    })
+
+    if(!equipmentType) throw new NoDataFoundError('Equipment type')
+
+    const equipment: EquipmentEntity | null = await this.equipmentRepository.findOne({where: {id: id.getValue()}})
+    
+    if(!equipment) throw new NoDataFoundError('Equipment')
+
+    equipment.name = name,
+    equipment.description = description
+    equipment.statistics = statistics.getValue()
+    equipment.location = location
+    equipment.equipmentTypeId = equipmentType
+    
+    await this.equipmentRepository.save(equipment)
+
+    return equipment
   }
 }
